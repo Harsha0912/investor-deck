@@ -21,7 +21,6 @@
         }
 
         :root {
-            /* Colors */
             --bg-primary: #0a0a0f;
             --bg-secondary: #111118;
             --bg-card: #16161f;
@@ -34,18 +33,13 @@
             --accent-red: #ef5350;
             --accent-gold: #ffd54f;
 
-            /* Typography */
-            --title-size: clamp(1.8rem, 5vw, 3.5rem);
-            --h2-size: clamp(1.4rem, 3.5vw, 2.5rem);
-            --h3-size: clamp(1rem, 2.5vw, 1.5rem);
-            --body-size: clamp(0.8rem, 1.5vw, 1.1rem);
-            --small-size: clamp(0.7rem, 1vw, 0.85rem);
+            --title-size: clamp(2rem, 5vw, 4rem);
+            --h2-size: clamp(1.6rem, 4vw, 3rem);
+            --big-number: clamp(3rem, 10vw, 8rem);
+            --body-size: clamp(0.9rem, 1.8vw, 1.3rem);
+            --small-size: clamp(0.75rem, 1.2vw, 0.95rem);
 
-            /* Spacing */
-            --slide-padding: clamp(1.5rem, 5vw, 5rem);
-            --content-gap: clamp(0.5rem, 2vw, 2rem);
-
-            /* Animation */
+            --slide-padding: clamp(2rem, 6vw, 6rem);
             --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -63,7 +57,7 @@
         }
 
         /* ============================================
-           VIEWPORT FITTING — MANDATORY
+           SLIDE BASE
            ============================================ */
         .slide {
             width: 100vw;
@@ -73,22 +67,12 @@
             scroll-snap-align: start;
             display: flex;
             flex-direction: column;
-            position: relative;
-        }
-
-        .slide-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
             justify-content: center;
-            max-height: 100%;
-            overflow: hidden;
-            padding: var(--slide-padding);
+            align-items: center;
+            position: relative;
+            text-align: center;
         }
 
-        /* ============================================
-           GRID BACKGROUND
-           ============================================ */
         .slide::before {
             content: '';
             position: absolute;
@@ -98,6 +82,14 @@
                 linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
             background-size: 60px 60px;
             pointer-events: none;
+        }
+
+        .slide-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1100px;
+            width: 100%;
+            padding: 0 var(--slide-padding);
         }
 
         /* ============================================
@@ -131,17 +123,11 @@
             letter-spacing: -0.01em;
         }
 
-        h3 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: var(--h3-size);
-            font-weight: 600;
-            line-height: 1.3;
-        }
-
-        p, li {
+        .subtitle {
             font-size: var(--body-size);
-            line-height: 1.6;
             color: var(--text-secondary);
+            margin-top: 0.75rem;
+            font-weight: 300;
         }
 
         .accent { color: var(--accent); }
@@ -151,7 +137,7 @@
         .gold { color: var(--accent-gold); }
 
         /* ============================================
-           ENTRANCE ANIMATIONS
+           ANIMATIONS
            ============================================ */
         .reveal {
             opacity: 0;
@@ -170,130 +156,447 @@
         .visible .reveal:nth-child(3) { transition-delay: 0.3s; }
         .visible .reveal:nth-child(4) { transition-delay: 0.4s; }
         .visible .reveal:nth-child(5) { transition-delay: 0.5s; }
-        .visible .reveal:nth-child(6) { transition-delay: 0.6s; }
 
         /* ============================================
-           TABLES
+           GIANT NUMBER STYLE
            ============================================ */
-        table {
-            width: 100%;
-            border-collapse: collapse;
+        .giant {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: var(--big-number);
+            line-height: 1;
+            letter-spacing: -0.03em;
+        }
+
+        .giant-label {
             font-size: var(--body-size);
-        }
-
-        th {
-            text-align: left;
-            padding: clamp(0.4rem, 1vh, 0.75rem) clamp(0.5rem, 1vw, 1rem);
-            border-bottom: 2px solid var(--accent);
-            color: var(--text-primary);
-            font-weight: 600;
-            font-size: var(--small-size);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        td {
-            padding: clamp(0.4rem, 1vh, 0.75rem) clamp(0.5rem, 1vw, 1rem);
-            border-bottom: 1px solid rgba(255,255,255,0.06);
             color: var(--text-secondary);
-        }
-
-        tr:last-child td {
-            border-bottom: none;
-        }
-
-        .highlight-row td {
-            color: var(--text-primary);
-            font-weight: 600;
+            margin-top: 0.5rem;
         }
 
         /* ============================================
-           STAT CARDS
+           PLAYER CARDS (Side-by-side)
            ============================================ */
-        .stats-row {
-            display: flex;
-            gap: clamp(0.5rem, 2vw, 1.5rem);
-            flex-wrap: wrap;
+        .card-row {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: clamp(1rem, 3vw, 2rem);
+            align-items: center;
+            width: 100%;
         }
 
-        .stat-card {
-            flex: 1;
-            min-width: 140px;
+        .player-card {
             background: var(--bg-card);
             border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 8px;
-            padding: clamp(0.75rem, 2vw, 1.5rem);
+            border-radius: 12px;
+            padding: clamp(1.5rem, 3vw, 2.5rem);
+            text-align: center;
         }
 
-        .stat-card .number {
+        .player-card.green-glow {
+            border-color: rgba(102, 187, 106, 0.3);
+            box-shadow: 0 0 40px rgba(102, 187, 106, 0.08);
+        }
+
+        .player-card.red-glow {
+            border-color: rgba(239, 83, 80, 0.3);
+            box-shadow: 0 0 40px rgba(239, 83, 80, 0.08);
+        }
+
+        .player-card .card-number {
             font-family: 'Archivo Black', sans-serif;
-            font-size: clamp(1.2rem, 3vw, 2.2rem);
-            color: var(--accent);
+            font-size: clamp(1.8rem, 4vw, 3rem);
             line-height: 1.2;
         }
 
-        .stat-card .label {
+        .player-card .card-detail {
             font-size: var(--small-size);
             color: var(--text-secondary);
             margin-top: 0.25rem;
         }
 
-        /* ============================================
-           COMPARISON TABLE (SPECIAL)
-           ============================================ */
-        .compare-table {
-            width: 100%;
-            max-width: 800px;
+        .player-card .card-ev {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid rgba(255,255,255,0.06);
         }
 
-        .compare-table th:first-child { width: 30%; }
-
-        .good { color: var(--accent-green); }
-        .bad { color: var(--accent-red); }
+        .card-row .vs {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            color: var(--text-secondary);
+        }
 
         /* ============================================
-           PILL / TAG
+           ICON CARD (for suite vs exit)
            ============================================ */
-        .pill {
-            display: inline-block;
-            padding: 0.2rem 0.75rem;
-            border-radius: 100px;
+        .outcome-card {
+            padding: clamp(1rem, 2vw, 1.5rem) clamp(1.5rem, 3vw, 2.5rem);
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .outcome-card .outcome-icon {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 0.5rem;
+        }
+
+        .outcome-card .outcome-text {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: clamp(1rem, 2vw, 1.4rem);
+        }
+
+        .outcome-card.green-glow {
+            background: rgba(102, 187, 106, 0.06);
+            border: 1px solid rgba(102, 187, 106, 0.2);
+        }
+
+        .outcome-card.red-glow {
+            background: rgba(239, 83, 80, 0.06);
+            border: 1px solid rgba(239, 83, 80, 0.2);
+        }
+
+        /* ============================================
+           STAT STACK (vertical big numbers)
+           ============================================ */
+        .stat-stack {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.5rem, 2vw, 1.5rem);
+        }
+
+        .stat-stack-item {
+            display: flex;
+            align-items: baseline;
+            gap: clamp(0.5rem, 1.5vw, 1rem);
+            justify-content: center;
+        }
+
+        .stat-stack-item .number {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            line-height: 1;
+        }
+
+        .stat-stack-item .label {
+            font-size: var(--body-size);
+            color: var(--text-secondary);
+            text-align: left;
+        }
+
+        /* ============================================
+           ARROW (Harrah's slide)
+           ============================================ */
+        .arrow-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(1rem, 3vw, 2.5rem);
+        }
+
+        .arrow-flow .from, .arrow-flow .to {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            line-height: 1;
+        }
+
+        .arrow-flow .arrow {
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: var(--accent);
+        }
+
+        /* ============================================
+           3-STEP FLOW (How It Works)
+           ============================================ */
+        .step-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(0.5rem, 2vw, 1.5rem);
+        }
+
+        .step {
+            text-align: center;
+            flex: 1;
+            max-width: 250px;
+        }
+
+        .step .step-icon {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 0.5rem;
+        }
+
+        .step .step-label {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: clamp(0.8rem, 1.5vw, 1.1rem);
+        }
+
+        .step .step-sub {
             font-size: var(--small-size);
-            font-weight: 500;
-            background: var(--accent);
+            color: var(--text-secondary);
+            margin-top: 0.2rem;
+        }
+
+        .step-flow .step-arrow {
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        /* ============================================
+           BEFORE / AFTER ROWS
+           ============================================ */
+        .ba-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .ba-header {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 0.75rem 1rem;
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+        }
+
+        .ba-header.before { color: var(--accent-red); }
+        .ba-header.after { color: var(--accent-green); }
+
+        .ba-row {
+            display: contents;
+        }
+
+        .ba-cell {
+            padding: clamp(0.5rem, 1vw, 0.75rem) 1rem;
+            font-size: var(--body-size);
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            text-align: left;
+        }
+
+        .ba-cell.bad {
+            color: var(--accent-red);
+        }
+
+        .ba-cell.good {
+            color: var(--accent-green);
+        }
+
+        .ba-cell .icon {
+            margin-right: 0.5rem;
+        }
+
+        /* ============================================
+           MARKET BARS
+           ============================================ */
+        .market-bars {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.75rem, 2vw, 1.5rem);
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .market-bar-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .market-bar-row .bar-label {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+            min-width: 80px;
+            text-align: right;
+            color: var(--text-secondary);
+        }
+
+        .market-bar-row .bar-track {
+            flex: 1;
+            height: clamp(2rem, 4vw, 3rem);
+            background: var(--bg-card);
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .market-bar-row .bar-fill {
+            height: 100%;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            padding-left: 1rem;
+            font-family: 'Archivo Black', sans-serif;
+            font-size: clamp(0.8rem, 1.5vw, 1.1rem);
             color: white;
+            transition: width 1s var(--ease-out-expo);
+        }
+
+        /* ============================================
+           WHY NOW COMPARISON CARDS
+           ============================================ */
+        .why-now-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(1rem, 3vw, 2rem);
+            width: 100%;
+        }
+
+        .why-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: clamp(1.5rem, 3vw, 2.5rem);
+            text-align: center;
+        }
+
+        .why-card.failed {
+            border: 1px solid rgba(239, 83, 80, 0.2);
+        }
+
+        .why-card.ours {
+            border: 1px solid rgba(102, 187, 106, 0.2);
+        }
+
+        .why-card .why-icon {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
             margin-bottom: 0.75rem;
         }
 
+        .why-card .why-title {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: clamp(1rem, 2vw, 1.4rem);
+            margin-bottom: 0.5rem;
+        }
+
+        .why-card .why-detail {
+            font-size: var(--small-size);
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
         /* ============================================
-           ACCENT BAR
+           PROGRESS TIMELINE
            ============================================ */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.5rem, 1.5vw, 1rem);
+            text-align: left;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: clamp(1rem, 2vw, 1.4rem);
+        }
+
+        .timeline-item .tl-icon {
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            width: 2rem;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .timeline-item .tl-text {
+            font-weight: 500;
+        }
+
+        .timeline-item.done .tl-text {
+            color: var(--accent-green);
+        }
+
+        .timeline-item.wip .tl-text {
+            color: var(--accent);
+        }
+
+        .timeline-item.next .tl-text {
+            color: var(--text-secondary);
+        }
+
+        /* ============================================
+           TEAM GRID
+           ============================================ */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: clamp(1rem, 3vw, 2rem);
+            width: 100%;
+        }
+
+        .team-member {
+            text-align: center;
+        }
+
+        .team-member .tm-name {
+            font-family: 'Archivo Black', sans-serif;
+            font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+            margin-bottom: 0.25rem;
+        }
+
+        .team-member .tm-school {
+            font-size: var(--small-size);
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-member .tm-line {
+            font-size: var(--body-size);
+            color: var(--text-secondary);
+        }
+
+        /* ============================================
+           TITLE SLIDE SPECIAL
+           ============================================ */
+        .title-slide {
+            background: radial-gradient(ellipse at 30% 70%, rgba(255,87,34,0.08) 0%, transparent 50%),
+                        radial-gradient(ellipse at 70% 30%, rgba(79,195,247,0.05) 0%, transparent 50%),
+                        var(--bg-primary);
+        }
+
         .accent-bar {
-            width: 50px;
+            width: 60px;
             height: 4px;
             background: var(--accent);
             border-radius: 2px;
-            margin-bottom: clamp(0.5rem, 1.5vw, 1rem);
+            margin: 0 auto clamp(0.5rem, 1.5vw, 1rem);
         }
 
         /* ============================================
-           TWO-COLUMN LAYOUT
+           FORMULA SLIDE
            ============================================ */
-        .two-col {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: clamp(1rem, 3vw, 3rem);
-            align-items: start;
+        .formula {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.2rem, 3vw, 2.2rem);
+            font-weight: 300;
+            letter-spacing: 0.02em;
+            color: var(--text-secondary);
         }
 
-        @media (max-width: 700px) {
-            .two-col {
-                grid-template-columns: 1fr;
-            }
+        .formula .house-edge {
+            color: var(--accent);
+            font-weight: 700;
+            text-shadow: 0 0 30px var(--accent-glow);
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { text-shadow: 0 0 20px rgba(255, 87, 34, 0.3); }
+            50% { text-shadow: 0 0 40px rgba(255, 87, 34, 0.6), 0 0 80px rgba(255, 87, 34, 0.2); }
         }
 
         /* ============================================
-           PROGRESS BAR
+           PROGRESS BAR & NAV DOTS
            ============================================ */
         .progress-bar {
             position: fixed;
@@ -305,9 +608,6 @@
             transition: width 0.3s ease;
         }
 
-        /* ============================================
-           NAV DOTS
-           ============================================ */
         .nav-dots {
             position: fixed;
             right: clamp(0.5rem, 1.5vw, 1.5rem);
@@ -315,7 +615,7 @@
             transform: translateY(-50%);
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
             z-index: 100;
         }
 
@@ -334,85 +634,52 @@
         }
 
         /* ============================================
-           TITLE SLIDE SPECIAL
+           CTA BUTTON
            ============================================ */
-        .title-slide {
-            background: radial-gradient(ellipse at 30% 70%, rgba(255,87,34,0.08) 0%, transparent 50%),
-                        radial-gradient(ellipse at 70% 30%, rgba(79,195,247,0.05) 0%, transparent 50%),
-                        var(--bg-primary);
-        }
-
-        .title-slide .subtitle {
-            font-size: clamp(1rem, 2vw, 1.4rem);
-            color: var(--text-secondary);
-            margin-top: clamp(0.5rem, 1.5vw, 1rem);
-            font-weight: 300;
-        }
-
-        .title-slide .tagline {
-            font-size: var(--body-size);
-            color: var(--accent);
-            font-weight: 500;
+        .cta-btn {
+            display: inline-block;
             margin-top: clamp(1rem, 3vw, 2rem);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        /* ============================================
-           QUOTE STYLE
-           ============================================ */
-        blockquote {
-            border-left: 3px solid var(--accent);
-            padding-left: clamp(0.75rem, 2vw, 1.5rem);
-            font-style: italic;
-            color: var(--text-secondary);
+            padding: 0.75rem 2rem;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
             font-size: var(--body-size);
+            font-weight: 600;
+            transition: opacity 0.2s ease;
         }
 
-        blockquote cite {
-            display: block;
-            margin-top: 0.5rem;
-            font-style: normal;
-            font-size: var(--small-size);
-            color: var(--accent);
-        }
-
-        /* ============================================
-           ROI HIGHLIGHT
-           ============================================ */
-        .roi-box {
-            background: linear-gradient(135deg, rgba(255,87,34,0.1), rgba(255,87,34,0.02));
-            border: 1px solid rgba(255,87,34,0.2);
-            border-radius: 8px;
-            padding: clamp(0.75rem, 2vw, 1.5rem);
-            text-align: center;
-        }
-
-        .roi-box .big-number {
-            font-family: 'Archivo Black', sans-serif;
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            color: var(--accent);
+        .cta-btn:hover {
+            opacity: 0.85;
         }
 
         /* ============================================
-           SHORT VIEWPORT ADJUSTMENTS
+           RESPONSIVE
            ============================================ */
+        @media (max-width: 700px) {
+            .card-row { grid-template-columns: 1fr; }
+            .card-row .vs { display: none; }
+            .why-now-row { grid-template-columns: 1fr; }
+            .ba-grid { max-width: 100%; }
+            .team-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+            .step-flow { flex-direction: column; }
+            .step-flow .step-arrow { transform: rotate(90deg); }
+            .arrow-flow { flex-direction: column; gap: 0.5rem; }
+            .arrow-flow .arrow { transform: rotate(90deg); }
+        }
+
         @media (max-height: 700px) {
             :root {
-                --slide-padding: clamp(0.75rem, 3vw, 2.5rem);
-                --content-gap: clamp(0.4rem, 1.5vw, 1rem);
-                --title-size: clamp(1.4rem, 4.5vw, 2.5rem);
-                --h2-size: clamp(1.2rem, 3vw, 1.75rem);
+                --big-number: clamp(2.5rem, 8vw, 5rem);
+                --h2-size: clamp(1.3rem, 3.5vw, 2.2rem);
             }
         }
 
         @media (max-height: 600px) {
-            :root {
-                --slide-padding: clamp(0.5rem, 2.5vw, 1.5rem);
-                --title-size: clamp(1.2rem, 4vw, 2rem);
-                --body-size: clamp(0.7rem, 1.2vw, 0.95rem);
-            }
             .nav-dots { display: none; }
+            :root {
+                --big-number: clamp(2rem, 6vw, 4rem);
+            }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -437,334 +704,315 @@
          ============================================ -->
     <section class="slide title-slide" data-slide="0">
         <div class="slide-content">
-            <div class="reveal tagline">Real-Time Expected Value Analytics</div>
-            <h1 class="reveal" style="margin-top: clamp(0.5rem, 1.5vw, 1rem);">Professional<br>Gaming Software</h1>
-            <p class="reveal subtitle">Casinos spend billions on comps using data that's wrong half the time.<br>We fix that.</p>
+            <div class="reveal accent-bar"></div>
+            <h1 class="reveal">Professional<br>Gaming Software</h1>
+            <p class="reveal subtitle">Real-Time EV Analytics for Blackjack</p>
         </div>
     </section>
 
     <!-- ============================================
-         SLIDE 2: THE PROBLEM
+         SLIDE 2: THE FORMULA
          ============================================ -->
     <section class="slide" data-slide="1">
         <span class="slide-number">01</span>
         <div class="slide-content">
-            <div class="reveal accent-bar"></div>
-            <h2 class="reveal">Casinos Don't Know What<br>Their Customers Are Worth</h2>
-            <p class="reveal" style="max-width: 700px; margin-top: var(--content-gap);">
-                Every comp decision — free rooms, dinners, show tickets — comes from one formula:
-            </p>
-            <p class="reveal" style="font-family: 'Archivo Black', sans-serif; font-size: var(--h3-size); color: var(--text-primary); margin: var(--content-gap) 0;">
-                Average Bet &times; Hands/Hour &times; <span class="accent">House Edge</span> &times; Time
-            </p>
-            <p class="reveal" style="max-width: 700px;">
-                The most important variable — <strong class="accent">house edge</strong> — is wrong for 98% of players.
-                The system assumes everyone plays optimally, but fewer than 2% actually do.
-            </p>
-            <blockquote class="reveal" style="margin-top: var(--content-gap); max-width: 600px;">
-                "Of the regular players that come to my table, less than 2% play perfect strategy all the time."
-                <cite>— Veteran blackjack dealer, Casino Center</cite>
-            </blockquote>
+            <h2 class="reveal" style="margin-bottom: clamp(1rem, 3vw, 2rem);">Every comp starts here</h2>
+            <div class="reveal formula">
+                Avg Bet &nbsp;&times;&nbsp; Hands/Hr &nbsp;&times;&nbsp; <span class="house-edge">House Edge</span> &nbsp;&times;&nbsp; Time
+            </div>
         </div>
     </section>
 
     <!-- ============================================
-         SLIDE 3: THE 8X GAP
+         SLIDE 3: 98% WRONG
          ============================================ -->
     <section class="slide" data-slide="2">
         <span class="slide-number">02</span>
         <div class="slide-content">
-            <div class="reveal accent-bar"></div>
-            <h2 class="reveal">Same Value. Different Treatment.</h2>
-            <p class="reveal" style="margin-bottom: var(--content-gap); max-width: 650px;">
-                Every player gets the same flat house edge (0.5–1.5%). The real edge varies <strong style="color: var(--text-primary);">8x</strong> based on how they play.
-            </p>
-            <table class="reveal compare-table">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Player A: Skilled</th>
-                        <th>Player B: Casual</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Bet per hand</td>
-                        <td>$200</td>
-                        <td>$25</td>
-                    </tr>
-                    <tr>
-                        <td>Casino's actual edge</td>
-                        <td class="bad">0.5%</td>
-                        <td class="good">4.0%</td>
-                    </tr>
-                    <tr class="highlight-row">
-                        <td>Actual profit / hour</td>
-                        <td>$80</td>
-                        <td>$80</td>
-                    </tr>
-                    <tr>
-                        <td>Current system thinks</td>
-                        <td class="bad">$240/hr → suite</td>
-                        <td class="bad">$30/hr → nothing</td>
-                    </tr>
-                </tbody>
-            </table>
-            <p class="reveal" style="margin-top: var(--content-gap); font-weight: 500; color: var(--text-primary); max-width: 650px;">
-                Equally valuable. One gets a suite. The other walks to a competitor.
-            </p>
+            <div class="reveal giant accent">98%</div>
+            <p class="reveal giant-label">of players rated with the wrong house edge</p>
         </div>
     </section>
 
     <!-- ============================================
-         SLIDE 4: WHAT'S AT STAKE
+         SLIDE 4: THE 8X GAP
          ============================================ -->
     <section class="slide" data-slide="3">
         <span class="slide-number">03</span>
         <div class="slide-content">
-            <div class="reveal accent-bar"></div>
-            <h2 class="reveal">What's at Stake</h2>
-            <div class="reveal stats-row" style="margin-top: var(--content-gap);">
-                <div class="stat-card">
-                    <div class="number">$71.9B</div>
-                    <div class="label">US casino revenue (2024, record)</div>
+            <h2 class="reveal" style="margin-bottom: clamp(1rem, 3vw, 2rem);">The 8x Gap</h2>
+            <div class="reveal card-row">
+                <div class="player-card green-glow">
+                    <div class="card-number" style="color: var(--text-primary);">$200 bet</div>
+                    <div class="card-detail">0.5% true edge</div>
+                    <div class="card-ev green">$80/hr</div>
                 </div>
-                <div class="stat-card">
-                    <div class="number">$4.4B</div>
-                    <div class="label">Comp spending, Nevada alone</div>
+                <div class="vs">vs</div>
+                <div class="player-card red-glow">
+                    <div class="card-number" style="color: var(--text-primary);">$25 bet</div>
+                    <div class="card-detail">4.0% true edge</div>
+                    <div class="card-ev red">$80/hr</div>
                 </div>
-                <div class="stat-card">
-                    <div class="number">25–40%</div>
-                    <div class="label">Of player value returned as comps</div>
-                </div>
-            </div>
-            <div class="reveal" style="margin-top: var(--content-gap); padding: clamp(0.5rem, 1.5vw, 1rem); background: rgba(255,87,34,0.06); border-left: 3px solid var(--accent); border-radius: 0 4px 4px 0;">
-                <p style="color: var(--text-primary); font-weight: 500;">
-                    If estimates are off by just 20% — the conservative end — that's <span class="accent" style="font-weight: 700;">$880M+ in comps going to the wrong players</span> every year in Nevada alone.
-                </p>
             </div>
         </div>
     </section>
 
     <!-- ============================================
-         SLIDE 5: PROVEN BEFORE
+         SLIDE 5: SAME VALUE, DIFFERENT TREATMENT
          ============================================ -->
     <section class="slide" data-slide="4">
         <span class="slide-number">04</span>
         <div class="slide-content">
-            <div class="reveal accent-bar"></div>
-            <h2 class="reveal">This Has Been Proven Before</h2>
-            <p class="reveal" style="margin: var(--content-gap) 0; max-width: 700px;">
-                Harrah's (now Caesars) replaced gut-feel player valuation with data-driven analytics — <strong style="color: var(--text-primary);">for slot machines.</strong>
-            </p>
-            <div class="reveal stats-row">
-                <div class="stat-card">
-                    <div class="number">$113M → $250M</div>
-                    <div class="label">Cross-market revenue more than doubled</div>
+            <h2 class="reveal" style="margin-bottom: clamp(1rem, 3vw, 2rem);">Same value. Different treatment.</h2>
+            <div class="reveal card-row" style="max-width: 700px; margin: 0 auto;">
+                <div class="outcome-card green-glow">
+                    <div class="outcome-icon">🏨</div>
+                    <div class="outcome-text green">Gets a suite</div>
                 </div>
-                <div class="stat-card">
-                    <div class="number">15+</div>
-                    <div class="label">Consecutive quarters of same-store growth</div>
-                </div>
-                <div class="stat-card">
-                    <div class="number">$1B+</div>
-                    <div class="label">Loyalty program asset value</div>
+                <div class="vs">vs</div>
+                <div class="outcome-card red-glow">
+                    <div class="outcome-icon">🚪</div>
+                    <div class="outcome-text red">Walks out</div>
                 </div>
             </div>
-            <p class="reveal" style="margin-top: var(--content-gap); font-family: 'Archivo Black', sans-serif; font-size: var(--h3-size); color: var(--text-primary);">
-                Harrah's did this for slots.<br><span class="accent">No one has done it for table games.</span>
-            </p>
         </div>
     </section>
 
     <!-- ============================================
-         SLIDE 6: OUR PRODUCT
+         SLIDE 6: WHAT'S AT STAKE
          ============================================ -->
     <section class="slide" data-slide="5">
         <span class="slide-number">05</span>
         <div class="slide-content">
-            <div class="reveal accent-bar"></div>
-            <h2 class="reveal">How It Works</h2>
-            <p class="reveal" style="margin: var(--content-gap) 0; max-width: 700px;">
-                Computer vision reads every card dealt at the blackjack table using cameras casinos already have. No special cards, no sensors, no hardware — <strong style="color: var(--text-primary);">just software.</strong>
-            </p>
-            <table class="reveal" style="max-width: 800px;">
-                <thead>
-                    <tr>
-                        <th>Today</th>
-                        <th>Our System</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="bad">Same flat house edge for every player</td>
-                        <td class="good">True edge per player based on actual play</td>
-                    </tr>
-                    <tr>
-                        <td class="bad">Rating updated when player leaves</td>
-                        <td class="good">Real-time updates every hand</td>
-                    </tr>
-                    <tr>
-                        <td class="bad">Unrated players invisible</td>
-                        <td class="good">Every player tracked automatically</td>
-                    </tr>
-                    <tr>
-                        <td class="bad">Comps based on flawed estimates</td>
-                        <td class="good">Comps based on true mathematical value</td>
-                    </tr>
-                </tbody>
-            </table>
+            <h2 class="reveal" style="margin-bottom: clamp(1rem, 3vw, 2rem);">What's at Stake</h2>
+            <div class="reveal stat-stack">
+                <div class="stat-stack-item">
+                    <span class="number accent">$71.9B</span>
+                    <span class="label">US casino revenue</span>
+                </div>
+                <div class="stat-stack-item">
+                    <span class="number gold">$4.4B</span>
+                    <span class="label">in comps (Nevada alone)</span>
+                </div>
+                <div class="stat-stack-item">
+                    <span class="number red">$880M+</span>
+                    <span class="label">misallocated every year</span>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- ============================================
-         SLIDE 7: ROI
+         SLIDE 7: PROVEN BEFORE
          ============================================ -->
     <section class="slide" data-slide="6">
         <span class="slide-number">06</span>
         <div class="slide-content">
-            <div class="reveal accent-bar"></div>
-            <h2 class="reveal">The ROI</h2>
-            <p class="reveal" style="color: var(--text-secondary); margin-bottom: var(--content-gap);">Single casino, 20 blackjack tables</p>
-            <table class="reveal" style="max-width: 700px;">
-                <tbody>
-                    <tr>
-                        <td>Annual comp spend (table games)</td>
-                        <td style="text-align: right; color: var(--text-primary);">~$2M</td>
-                    </tr>
-                    <tr>
-                        <td>Misallocated comps (20%, conservative)</td>
-                        <td style="text-align: right; color: var(--accent-red);">$400K/yr</td>
-                    </tr>
-                    <tr>
-                        <td>Revenue from redirecting comps ($1 → $4.53)</td>
-                        <td style="text-align: right; color: var(--accent-green);">$1.81M</td>
-                    </tr>
-                    <tr>
-                        <td>Our software cost (20 tables × $1K/mo)</td>
-                        <td style="text-align: right; color: var(--text-primary);">$240K/yr</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="reveal roi-box" style="margin-top: var(--content-gap); max-width: 700px;">
-                <div class="big-number">7.5x ROI</div>
-                <p style="color: var(--text-primary); font-weight: 500; margin-top: 0.25rem;">$1.57M recaptured for $240K in software</p>
+            <h2 class="reveal" style="margin-bottom: clamp(1rem, 3vw, 2rem);">Harrah's did this for slots.</h2>
+            <div class="reveal arrow-flow">
+                <span class="from" style="color: var(--text-secondary);">$113M</span>
+                <span class="arrow">→</span>
+                <span class="to accent">$250M</span>
             </div>
+            <p class="reveal giant-label" style="margin-top: clamp(0.5rem, 1.5vw, 1rem);">Cross-market revenue — more than doubled</p>
         </div>
     </section>
 
     <!-- ============================================
-         SLIDE 8: MARKET SIZE
+         SLIDE 8: NO ONE HAS DONE IT
          ============================================ -->
     <section class="slide" data-slide="7">
         <span class="slide-number">07</span>
         <div class="slide-content">
-            <div class="reveal accent-bar"></div>
-            <h2 class="reveal">Market Opportunity</h2>
-            <p class="reveal" style="margin-bottom: var(--content-gap); max-width: 650px;">
-                ~1,000 US casinos with table games (460 commercial + 500+ tribal). SaaS at $1,000/table/month.
-            </p>
-            <table class="reveal" style="max-width: 700px;">
-                <thead>
-                    <tr>
-                        <th>Penetration</th>
-                        <th>Casinos</th>
-                        <th>ARR (Blackjack)</th>
-                        <th>ARR (All Table Games)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>5%</td>
-                        <td>50</td>
-                        <td>$12M</td>
-                        <td>$36M</td>
-                    </tr>
-                    <tr>
-                        <td>10%</td>
-                        <td>100</td>
-                        <td style="color: var(--accent);">$24M</td>
-                        <td style="color: var(--accent);">$72M</td>
-                    </tr>
-                    <tr>
-                        <td>25%</td>
-                        <td>250</td>
-                        <td>$60M</td>
-                        <td>$180M</td>
-                    </tr>
-                </tbody>
-            </table>
-            <p class="reveal" style="margin-top: var(--content-gap); color: var(--text-secondary);">
-                Blackjack first → expand to baccarat, roulette, poker (~3x table count per casino). International is larger — Macau alone exceeds all of Las Vegas in table game revenue.
-            </p>
+            <h2 class="reveal" style="font-size: clamp(1.8rem, 4.5vw, 3.5rem);">No one has done it<br>for <span class="accent">table games.</span></h2>
         </div>
     </section>
 
     <!-- ============================================
-         SLIDE 9: WHY NOW
+         SLIDE 9: HOW IT WORKS
          ============================================ -->
     <section class="slide" data-slide="8">
         <span class="slide-number">08</span>
         <div class="slide-content">
-            <div class="reveal accent-bar"></div>
-            <h2 class="reveal">Why Now</h2>
-            <p class="reveal" style="margin: var(--content-gap) 0; max-width: 700px;">
-                Slot machines have had per-spin analytics for decades. Table games are still pen, paper, and guesswork.
-            </p>
-            <div class="reveal" style="background: var(--bg-card); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: clamp(0.75rem, 2vw, 1.25rem); max-width: 700px; margin-bottom: var(--content-gap);">
-                <h3 style="color: var(--accent-red); margin-bottom: 0.5rem;">MindPlay (2003–2007) tried and failed</h3>
-                <p>14 additional cameras per table. Custom barcoded cards. RFID chips. $20K per table. Riddled with glitches. Went bankrupt.</p>
-            </div>
-            <div class="reveal" style="background: var(--bg-card); border: 1px solid rgba(255,87,34,0.2); border-radius: 8px; padding: clamp(0.75rem, 2vw, 1.25rem); max-width: 700px;">
-                <h3 style="color: var(--accent-green); margin-bottom: 0.5rem;">Our approach: pure software</h3>
-                <p>Modern computer vision on the cameras casinos already own. No hardware, no special cards, no disruption to gameplay. This wasn't possible in 2003.</p>
+            <h2 class="reveal" style="margin-bottom: clamp(1.5rem, 4vw, 3rem);">How It Works</h2>
+            <div class="reveal step-flow">
+                <div class="step">
+                    <div class="step-icon">📷</div>
+                    <div class="step-label">Existing Cameras</div>
+                    <div class="step-sub">Already installed</div>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step">
+                    <div class="step-icon">🧠</div>
+                    <div class="step-label">Our Software</div>
+                    <div class="step-sub">Computer vision + math</div>
+                </div>
+                <div class="step-arrow">→</div>
+                <div class="step">
+                    <div class="step-icon">📊</div>
+                    <div class="step-label">Live EV per Player</div>
+                    <div class="step-sub">Real-time dashboard</div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- ============================================
-         SLIDE 10: TEAM
+         SLIDE 10: BEFORE VS AFTER
          ============================================ -->
     <section class="slide" data-slide="9">
         <span class="slide-number">09</span>
         <div class="slide-content">
-            <div class="reveal accent-bar"></div>
-            <h2 class="reveal">Team</h2>
-            <div style="display: flex; flex-direction: column; gap: var(--content-gap); margin-top: var(--content-gap); max-width: 700px;">
-                <div class="reveal" style="display: flex; gap: clamp(0.5rem, 2vw, 1.5rem); align-items: start;">
-                    <div style="min-width: 3px; background: var(--accent); border-radius: 2px; align-self: stretch;"></div>
-                    <div>
-                        <h3 style="color: var(--text-primary);">Harsha <span style="font-weight: 400; color: var(--text-secondary); font-size: var(--body-size);">— UT Austin, Stats & Data Science</span></h3>
-                        <p>Reinforcement learning researcher. Made $5K+ card counting — that's how he found the problem.</p>
+            <h2 class="reveal" style="margin-bottom: clamp(1rem, 3vw, 2rem);">Before vs After</h2>
+            <div class="reveal ba-grid">
+                <div class="ba-header before">✗ Today</div>
+                <div class="ba-header after">✓ Our System</div>
+
+                <div class="ba-cell bad"><span class="icon">✗</span>Flat edge for every player</div>
+                <div class="ba-cell good"><span class="icon">✓</span>True edge per player</div>
+
+                <div class="ba-cell bad"><span class="icon">✗</span>Updated at card-out</div>
+                <div class="ba-cell good"><span class="icon">✓</span>Updated every hand</div>
+
+                <div class="ba-cell bad"><span class="icon">✗</span>Unrated players invisible</div>
+                <div class="ba-cell good"><span class="icon">✓</span>Every player tracked</div>
+
+                <div class="ba-cell bad"><span class="icon">✗</span>Comps based on guesswork</div>
+                <div class="ba-cell good"><span class="icon">✓</span>Comps based on math</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 11: ROI
+         ============================================ -->
+    <section class="slide" data-slide="10">
+        <span class="slide-number">10</span>
+        <div class="slide-content">
+            <div class="reveal giant accent">7.5x</div>
+            <p class="reveal giant-label" style="font-size: clamp(1rem, 2vw, 1.5rem); margin-top: 1rem;">
+                $240K/yr software → <span class="green">$1.57M recaptured</span>
+            </p>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 12: MARKET
+         ============================================ -->
+    <section class="slide" data-slide="11">
+        <span class="slide-number">11</span>
+        <div class="slide-content">
+            <h2 class="reveal" style="margin-bottom: clamp(1rem, 3vw, 2rem);">Market</h2>
+            <div class="reveal market-bars">
+                <div class="market-bar-row">
+                    <span class="bar-label">5%</span>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="width: 20%; background: linear-gradient(90deg, var(--accent), #ff7043);">$12M</div>
                     </div>
                 </div>
-                <div class="reveal" style="display: flex; gap: clamp(0.5rem, 2vw, 1.5rem); align-items: start;">
-                    <div style="min-width: 3px; background: var(--accent); border-radius: 2px; align-self: stretch;"></div>
-                    <div>
-                        <h3 style="color: var(--text-primary);">Tejas <span style="font-weight: 400; color: var(--text-secondary); font-size: var(--body-size);">— UT Austin, Computer Science</span></h3>
-                        <p>Left Netflix to build this full-time.</p>
+                <div class="market-bar-row">
+                    <span class="bar-label">10%</span>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="width: 40%; background: linear-gradient(90deg, var(--accent), #ff7043);">$24M</div>
                     </div>
                 </div>
-                <div class="reveal" style="display: flex; gap: clamp(0.5rem, 2vw, 1.5rem); align-items: start;">
-                    <div style="min-width: 3px; background: var(--accent); border-radius: 2px; align-self: stretch;"></div>
-                    <div>
-                        <h3 style="color: var(--text-primary);">Ted <span style="font-weight: 400; color: var(--text-secondary); font-size: var(--body-size);">— UPenn, Mathematical Economics</span></h3>
-                        <p>Left economic consulting to build this full-time. Worked on one of the largest bankruptcies and defamation cases in the country.</p>
+                <div class="market-bar-row">
+                    <span class="bar-label">25%</span>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="width: 100%; background: linear-gradient(90deg, var(--accent), #ff7043);">$60M</div>
                     </div>
+                </div>
+            </div>
+            <p class="reveal giant-label" style="margin-top: clamp(0.5rem, 1.5vw, 1rem);">~1,000 US casinos &nbsp;·&nbsp; $1K/table/mo &nbsp;·&nbsp; Blackjack only ARR</p>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 13: WHY NOW
+         ============================================ -->
+    <section class="slide" data-slide="12">
+        <span class="slide-number">12</span>
+        <div class="slide-content">
+            <h2 class="reveal" style="margin-bottom: clamp(1rem, 3vw, 2rem);">Why Now</h2>
+            <div class="reveal why-now-row">
+                <div class="why-card failed">
+                    <div class="why-icon">❌</div>
+                    <div class="why-title red">MindPlay (2003)</div>
+                    <div class="why-detail">14 cameras, RFID chips,<br>barcoded cards, $20K/table<br><strong style="color: var(--accent-red);">→ Bankrupt</strong></div>
+                </div>
+                <div class="why-card ours">
+                    <div class="why-icon">✅</div>
+                    <div class="why-title green">Us (2025)</div>
+                    <div class="why-detail">Existing cameras,<br>software only, $1K/table<br><strong style="color: var(--accent-green);">→ 10x cheaper</strong></div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- ============================================
-         SLIDE 11: CLOSING
+         SLIDE 14: PROGRESS
          ============================================ -->
-    <section class="slide title-slide" data-slide="10">
-        <div class="slide-content" style="align-items: center; text-align: center;">
-            <div class="reveal tagline">Real-Time EV Analytics for Blackjack</div>
-            <h1 class="reveal" style="margin-top: clamp(0.5rem, 1.5vw, 1rem);">Professional<br>Gaming Software</h1>
-            <p class="reveal subtitle" style="margin-top: var(--content-gap);">The table game data layer casinos have never had.</p>
-            <a class="reveal" href="https://youtu.be/_GCsWgOxNpk" target="_blank" rel="noopener" style="display: inline-block; margin-top: var(--content-gap); padding: 0.6rem 1.8rem; background: var(--accent); color: white; text-decoration: none; border-radius: 6px; font-size: var(--body-size); font-weight: 600; transition: opacity 0.2s ease;" onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">Watch the Demo →</a>
+    <section class="slide" data-slide="13">
+        <span class="slide-number">13</span>
+        <div class="slide-content">
+            <h2 class="reveal" style="margin-bottom: clamp(1rem, 3vw, 2rem);">Where We Are</h2>
+            <div class="reveal timeline">
+                <div class="timeline-item done">
+                    <span class="tl-icon">✅</span>
+                    <span class="tl-text">Card recognition — working demo</span>
+                </div>
+                <div class="timeline-item wip">
+                    <span class="tl-icon">🔨</span>
+                    <span class="tl-text">Analytics pipeline — building now</span>
+                </div>
+                <div class="timeline-item next">
+                    <span class="tl-icon">⬜</span>
+                    <span class="tl-text">Casino pilot — in conversations</span>
+                </div>
+                <div class="timeline-item next">
+                    <span class="tl-icon">⬜</span>
+                    <span class="tl-text">Expand beyond blackjack</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 15: TEAM
+         ============================================ -->
+    <section class="slide" data-slide="14">
+        <span class="slide-number">14</span>
+        <div class="slide-content">
+            <h2 class="reveal" style="margin-bottom: clamp(1.5rem, 4vw, 3rem);">Team</h2>
+            <div class="reveal team-grid">
+                <div class="team-member">
+                    <div class="tm-name">Harsha</div>
+                    <div class="tm-school">UT Austin · Stats & DS</div>
+                    <div class="tm-line">Built the CV system. $5K+ card counting.</div>
+                </div>
+                <div class="team-member">
+                    <div class="tm-name">Tejas</div>
+                    <div class="tm-school">UT Austin · CS</div>
+                    <div class="tm-line">Left Netflix to build this.</div>
+                </div>
+                <div class="team-member">
+                    <div class="tm-name">Ted</div>
+                    <div class="tm-school">UPenn · Math Econ</div>
+                    <div class="tm-line">Left econ consulting. Full-time.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 16: CLOSING + DEMO
+         ============================================ -->
+    <section class="slide title-slide" data-slide="15">
+        <div class="slide-content">
+            <div class="reveal accent-bar"></div>
+            <h1 class="reveal">Professional<br>Gaming Software</h1>
+            <p class="reveal subtitle">The table game data layer casinos have never had.</p>
+            <a class="reveal cta-btn" href="https://youtu.be/_GCsWgOxNpk" target="_blank" rel="noopener">Watch the Demo →</a>
         </div>
     </section>
 
@@ -777,7 +1025,6 @@
                 this.slides = document.querySelectorAll('.slide');
                 this.currentSlide = 0;
                 this.totalSlides = this.slides.length;
-                this.isTransitioning = false;
 
                 this.createNavDots();
                 this.setupObserver();
@@ -787,7 +1034,6 @@
                 this.updateProgress();
             }
 
-            /* --- Navigation Dots --- */
             createNavDots() {
                 const container = document.getElementById('navDots');
                 this.slides.forEach((_, i) => {
@@ -799,7 +1045,6 @@
                 this.dots = container.querySelectorAll('.nav-dot');
             }
 
-            /* --- Intersection Observer for animations --- */
             setupObserver() {
                 const observer = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
@@ -818,7 +1063,6 @@
                 this.slides.forEach(slide => observer.observe(slide));
             }
 
-            /* --- Keyboard navigation --- */
             setupKeyboard() {
                 document.addEventListener('keydown', (e) => {
                     if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
@@ -837,7 +1081,6 @@
                 });
             }
 
-            /* --- Mouse wheel --- */
             setupWheel() {
                 let lastWheel = 0;
                 document.addEventListener('wheel', (e) => {
@@ -849,7 +1092,6 @@
                 }, { passive: true });
             }
 
-            /* --- Touch / swipe --- */
             setupTouch() {
                 let startY = 0;
                 document.addEventListener('touchstart', (e) => {
@@ -864,7 +1106,6 @@
                 }, { passive: true });
             }
 
-            /* --- Slide navigation --- */
             goToSlide(index) {
                 if (index < 0 || index >= this.totalSlides) return;
                 this.currentSlide = index;
@@ -888,7 +1129,6 @@
             }
         }
 
-        /* Initialize on load */
         document.addEventListener('DOMContentLoaded', () => {
             new SlidePresentation();
         });
