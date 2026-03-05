@@ -372,9 +372,27 @@
             display: contents;
         }
 
+        .ba-row .ba-cell,
+        .ba-row .ba-header {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .visible .ba-row .ba-cell,
+        .visible .ba-row .ba-header {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .visible .ba-row:nth-child(2) .ba-cell { transition-delay: 0.4s; }
+        .visible .ba-row:nth-child(3) .ba-cell { transition-delay: 0.8s; }
+        .visible .ba-row:nth-child(4) .ba-cell { transition-delay: 1.2s; }
+        .visible .ba-row:nth-child(5) .ba-cell { transition-delay: 1.6s; }
+
         .ba-cell {
             padding: clamp(0.5rem, 1vw, 0.75rem) 1rem;
-            font-size: var(--body-size);
+            font-size: clamp(1.2rem, 2vw, 1.6rem);
             border-bottom: 1px solid rgba(255,255,255,0.04);
             text-align: left;
         }
@@ -864,21 +882,27 @@
         <span class="slide-number">09</span>
         <div class="slide-content">
             <h2 class="reveal" style="margin-bottom: clamp(1rem, 3vw, 2rem);">Before vs After</h2>
-            <div class="reveal ba-grid">
-                <div class="ba-header before">✗ Today</div>
-                <div class="ba-header after">✓ Our System</div>
-
-                <div class="ba-cell bad">🤷 Guessing</div>
-                <div class="ba-cell good">🧮 Math</div>
-
-                <div class="ba-cell bad">🐌 Delayed</div>
-                <div class="ba-cell good">⚡ Live</div>
-
-                <div class="ba-cell bad">🙈 Blind spots</div>
-                <div class="ba-cell good">👁️ Every player</div>
-
-                <div class="ba-cell bad">💸 Wasted comps</div>
-                <div class="ba-cell good">🎯 Precise comps</div>
+            <div class="ba-grid">
+                <div class="ba-row" style="opacity:1;transform:none;">
+                    <div class="ba-header before">✗ TODAY</div>
+                    <div class="ba-header after">✓ OUR SYSTEM</div>
+                </div>
+                <div class="ba-row">
+                    <div class="ba-cell bad">🤷 Guessing</div>
+                    <div class="ba-cell good">🧮 Math</div>
+                </div>
+                <div class="ba-row">
+                    <div class="ba-cell bad">🐌 Delayed</div>
+                    <div class="ba-cell good">⚡ Live</div>
+                </div>
+                <div class="ba-row">
+                    <div class="ba-cell bad">🙈 Blind spots</div>
+                    <div class="ba-cell good">👁️ Every player</div>
+                </div>
+                <div class="ba-row">
+                    <div class="ba-cell bad">💸 Wasted comps</div>
+                    <div class="ba-cell good">🎯 Precise comps</div>
+                </div>
             </div>
         </div>
     </section>
