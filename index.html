@@ -392,7 +392,8 @@
 
         .ba-cell {
             padding: clamp(0.75rem, 1.5vw, 1.25rem) 1rem;
-            font-size: clamp(3rem, 5vw, 4.5rem);
+            font-family: 'Archivo Black', sans-serif;
+            font-size: clamp(1rem, 2vw, 1.4rem);
             border-bottom: 1px solid rgba(255,255,255,0.04);
             text-align: center;
         }
@@ -784,12 +785,12 @@
             <h2 class="reveal" style="margin-bottom: clamp(1rem, 3vw, 2rem);">Same value. Different treatment.</h2>
             <div class="reveal card-row" style="max-width: 700px; margin: 0 auto;">
                 <div class="outcome-card green-glow">
-                    <div class="outcome-icon">🏨</div>
-                    <div class="outcome-text green">Gets a suite</div>
+                    <div class="outcome-icon" style="font-size:clamp(2rem,4vw,3rem);font-family:'Archivo Black',sans-serif;color:var(--accent-green);">SUITE</div>
+                    <div class="outcome-text green">Gets comped</div>
                 </div>
                 <div class="vs">vs</div>
                 <div class="outcome-card red-glow">
-                    <div class="outcome-icon">🚪</div>
+                    <div class="outcome-icon" style="font-size:clamp(2rem,4vw,3rem);font-family:'Archivo Black',sans-serif;color:var(--accent-red);">EXIT</div>
                     <div class="outcome-text red">Walks out</div>
                 </div>
             </div>
@@ -855,19 +856,19 @@
             <h2 class="reveal" style="margin-bottom: clamp(1.5rem, 4vw, 3rem);">How It Works</h2>
             <div class="reveal step-flow">
                 <div class="step">
-                    <div class="step-icon">📷</div>
+                    <div class="step-icon" style="font-family:'Archivo Black',sans-serif;color:var(--text-secondary);">CAM</div>
                     <div class="step-label">Existing Cameras</div>
                     <div class="step-sub">Already installed</div>
                 </div>
-                <div class="step-arrow">→</div>
+                <div class="step-arrow">&rarr;</div>
                 <div class="step">
-                    <div class="step-icon">🧠</div>
+                    <div class="step-icon" style="font-family:'Archivo Black',sans-serif;color:var(--accent);">CV</div>
                     <div class="step-label">Our Software</div>
                     <div class="step-sub">Computer vision + math</div>
                 </div>
-                <div class="step-arrow">→</div>
+                <div class="step-arrow">&rarr;</div>
                 <div class="step">
-                    <div class="step-icon">📊</div>
+                    <div class="step-icon" style="font-family:'Archivo Black',sans-serif;color:var(--accent-green);">EV</div>
                     <div class="step-label">Live EV per Player</div>
                     <div class="step-sub">Real-time dashboard</div>
                 </div>
@@ -888,20 +889,20 @@
                     <div class="ba-header after">✓ OUR SYSTEM</div>
                 </div>
                 <div class="ba-row">
-                    <div class="ba-cell bad">🤷</div>
-                    <div class="ba-cell good">🧮</div>
+                    <div class="ba-cell bad">Gut Feel</div>
+                    <div class="ba-cell good">Exact EV</div>
                 </div>
                 <div class="ba-row">
-                    <div class="ba-cell bad">🐌</div>
-                    <div class="ba-cell good">⚡</div>
+                    <div class="ba-cell bad">End of Shift</div>
+                    <div class="ba-cell good">Real-Time</div>
                 </div>
                 <div class="ba-row">
-                    <div class="ba-cell bad">🙈</div>
-                    <div class="ba-cell good">👁️</div>
+                    <div class="ba-cell bad">Blind Spots</div>
+                    <div class="ba-cell good">Every Hand</div>
                 </div>
                 <div class="ba-row">
-                    <div class="ba-cell bad">💸</div>
-                    <div class="ba-cell good">🎯</div>
+                    <div class="ba-cell bad">Wasted Comps</div>
+                    <div class="ba-cell good">Targeted Comps</div>
                 </div>
             </div>
         </div>
@@ -960,14 +961,14 @@
             <h2 class="reveal" style="margin-bottom: clamp(1rem, 3vw, 2rem);">Why Now</h2>
             <div class="reveal why-now-row">
                 <div class="why-card failed">
-                    <div class="why-icon">❌</div>
+                    <div class="why-icon" style="font-family:'Archivo Black',sans-serif;color:var(--accent-red);">&#10007;</div>
                     <div class="why-title red">MindPlay (2003)</div>
-                    <div class="why-detail" style="font-size: 3rem;">🕵️</div>
+                    <div class="why-detail">RFID chips, custom tables<br>$50K+ per table &mdash; too expensive</div>
                 </div>
                 <div class="why-card ours">
-                    <div class="why-icon">✅</div>
+                    <div class="why-icon" style="font-family:'Archivo Black',sans-serif;color:var(--accent-green);">&#10003;</div>
                     <div class="why-title green">Us (2025)</div>
-                    <div class="why-detail" style="font-size: 3rem;">📊</div>
+                    <div class="why-detail">Software-only, existing cameras<br>$0 hardware &mdash; just works</div>
                 </div>
             </div>
         </div>
@@ -982,19 +983,19 @@
             <h2 class="reveal" style="margin-bottom: clamp(1rem, 3vw, 2rem);">Where We Are</h2>
             <div class="reveal timeline">
                 <div class="timeline-item done">
-                    <span class="tl-icon">✅</span>
-                    <span class="tl-text">Card recognition — working demo</span>
+                    <span class="tl-icon" style="color:var(--accent-green);">&#10003;</span>
+                    <span class="tl-text">Card recognition &mdash; working demo</span>
                 </div>
                 <div class="timeline-item wip">
-                    <span class="tl-icon">🔨</span>
-                    <span class="tl-text">Analytics pipeline — building now</span>
+                    <span class="tl-icon" style="color:var(--accent);">&#9679;</span>
+                    <span class="tl-text">Analytics pipeline &mdash; building now</span>
                 </div>
                 <div class="timeline-item next">
-                    <span class="tl-icon">⬜</span>
-                    <span class="tl-text">Casino pilot — in conversations</span>
+                    <span class="tl-icon" style="color:var(--text-secondary);">&#9675;</span>
+                    <span class="tl-text">Casino pilot &mdash; in conversations</span>
                 </div>
                 <div class="timeline-item next">
-                    <span class="tl-icon">⬜</span>
+                    <span class="tl-icon" style="color:var(--text-secondary);">&#9675;</span>
                     <span class="tl-text">Expand beyond blackjack</span>
                 </div>
             </div>
