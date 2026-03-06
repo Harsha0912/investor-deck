@@ -673,6 +673,23 @@
         }
 
         /* ============================================
+           PHASE 2 ANIMATION (merged slide reveal)
+           ============================================ */
+        .phase2 {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s var(--ease-out-expo),
+                        transform 0.6s var(--ease-out-expo);
+            pointer-events: none;
+        }
+
+        .phase2.show {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        /* ============================================
            RESPONSIVE
            ============================================ */
         @media (max-width: 700px) {
@@ -754,12 +771,12 @@
     </section>
 
     <!-- ============================================
-         SLIDE 4: THE 8X GAP
+         SLIDE 4: THE 8X GAP (merged with Same Value)
          ============================================ -->
-    <section class="slide" data-slide="3">
+    <section class="slide phased-slide" data-slide="3" id="gapSlide">
         <span class="slide-number">03</span>
         <div class="slide-content">
-            <h2 class="reveal" style="margin-bottom: clamp(1rem, 3vw, 2rem);">The 8x Gap</h2>
+            <h2 class="reveal" style="margin-bottom: clamp(1rem, 3vw, 1.5rem);">The 8x Gap</h2>
             <div class="reveal card-row">
                 <div class="player-card green-glow">
                     <div class="card-number" style="color: var(--text-primary);">$200 bet</div>
@@ -773,25 +790,19 @@
                     <div class="card-ev red">$80/hr</div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- ============================================
-         SLIDE 5: SAME VALUE, DIFFERENT TREATMENT
-         ============================================ -->
-    <section class="slide" data-slide="4">
-        <span class="slide-number">04</span>
-        <div class="slide-content">
-            <h2 class="reveal" style="margin-bottom: clamp(1rem, 3vw, 2rem);">Same value. Different treatment.</h2>
-            <div class="reveal card-row" style="max-width: 700px; margin: 0 auto;">
-                <div class="outcome-card green-glow">
-                    <div class="outcome-icon" style="font-size:clamp(2rem,4vw,3rem);font-family:'Archivo Black',sans-serif;color:var(--accent-green);">SUITE</div>
-                    <div class="outcome-text green">Gets comped</div>
-                </div>
-                <div class="vs">vs</div>
-                <div class="outcome-card red-glow">
-                    <div class="outcome-icon" style="font-size:clamp(2rem,4vw,3rem);font-family:'Archivo Black',sans-serif;color:var(--accent-red);">EXIT</div>
-                    <div class="outcome-text red">Walks out</div>
+            <!-- Phase 2: revealed on next click/scroll -->
+            <div class="phase2" id="gapPhase2">
+                <h2 style="margin-top: clamp(1.5rem, 3vw, 2rem); margin-bottom: clamp(0.75rem, 2vw, 1rem); font-size: clamp(1.2rem, 2.5vw, 1.8rem);">Same value. Different treatment.</h2>
+                <div class="card-row" style="max-width: 600px; margin: 0 auto;">
+                    <div class="outcome-card green-glow">
+                        <div class="outcome-icon" style="font-size:clamp(1.8rem,3.5vw,2.5rem);font-family:'Archivo Black',sans-serif;color:var(--accent-green);">SUITE</div>
+                        <div class="outcome-text green">Gets comped</div>
+                    </div>
+                    <div class="vs">vs</div>
+                    <div class="outcome-card red-glow">
+                        <div class="outcome-icon" style="font-size:clamp(1.8rem,3.5vw,2.5rem);font-family:'Archivo Black',sans-serif;color:var(--accent-red);">EXIT</div>
+                        <div class="outcome-text red">Walks out</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -800,8 +811,8 @@
     <!-- ============================================
          SLIDE 6: WHAT'S AT STAKE
          ============================================ -->
-    <section class="slide" data-slide="5">
-        <span class="slide-number">05</span>
+    <section class="slide" data-slide="4">
+        <span class="slide-number">04</span>
         <div class="slide-content">
             <h2 class="reveal" style="margin-bottom: clamp(1rem, 3vw, 2rem);">What's at Stake</h2>
             <div class="reveal stat-stack">
@@ -822,7 +833,20 @@
     </section>
 
     <!-- ============================================
-         SLIDE 7: PROVEN BEFORE
+         SLIDE 7: AND THAT'S JUST COMPS
+         ============================================ -->
+    <section class="slide" data-slide="5">
+        <span class="slide-number">05</span>
+        <div class="slide-content">
+            <h2 class="reveal" style="font-size: clamp(1.6rem, 3.5vw, 2.8rem);">And that doesn't even count<br>the players who get <span class="accent">nothing.</span></h2>
+            <p class="reveal subtitle" style="margin-top: clamp(1rem, 2vw, 1.5rem); max-width: 700px; margin-left: auto; margin-right: auto;">
+                Millions of valuable players walk away uncomped every year &mdash; they're invisible to the current system. That $880M is just the misallocated piece. The real gap is much bigger.
+            </p>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 8: PROVEN BEFORE
          ============================================ -->
     <section class="slide" data-slide="6">
         <span class="slide-number">06</span>
@@ -838,7 +862,7 @@
     </section>
 
     <!-- ============================================
-         SLIDE 8: NO ONE HAS DONE IT
+         SLIDE 9: NO ONE HAS DONE IT
          ============================================ -->
     <section class="slide" data-slide="7">
         <span class="slide-number">07</span>
@@ -855,24 +879,25 @@
         <div class="slide-content">
             <h2 class="reveal" style="margin-bottom: clamp(1.5rem, 4vw, 3rem);">How It Works</h2>
             <div class="reveal step-flow">
-                <div class="step">
-                    <div class="step-icon" style="font-family:'Archivo Black',sans-serif;color:var(--text-secondary);">CAM</div>
+                <div class="step" style="background:var(--bg-card);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:clamp(1.2rem,2.5vw,2rem);">
+                    <div class="step-icon" style="font-family:'Archivo Black',sans-serif;font-size:clamp(1.8rem,3.5vw,2.5rem);color:var(--text-secondary);margin-bottom:0.3rem;">1</div>
                     <div class="step-label">Existing Cameras</div>
-                    <div class="step-sub">Already installed</div>
+                    <div class="step-sub">Already on the floor</div>
                 </div>
                 <div class="step-arrow">&rarr;</div>
-                <div class="step">
-                    <div class="step-icon" style="font-family:'Archivo Black',sans-serif;color:var(--accent);">CV</div>
+                <div class="step" style="background:var(--bg-card);border:1px solid rgba(255,87,34,0.2);border-radius:12px;padding:clamp(1.2rem,2.5vw,2rem);box-shadow:0 0 30px rgba(255,87,34,0.06);">
+                    <div class="step-icon" style="font-family:'Archivo Black',sans-serif;font-size:clamp(1.8rem,3.5vw,2.5rem);color:var(--accent);margin-bottom:0.3rem;">2</div>
                     <div class="step-label">Our Software</div>
-                    <div class="step-sub">Computer vision + math</div>
+                    <div class="step-sub">Computer vision + EV math</div>
                 </div>
                 <div class="step-arrow">&rarr;</div>
-                <div class="step">
-                    <div class="step-icon" style="font-family:'Archivo Black',sans-serif;color:var(--accent-green);">EV</div>
+                <div class="step" style="background:var(--bg-card);border:1px solid rgba(102,187,106,0.2);border-radius:12px;padding:clamp(1.2rem,2.5vw,2rem);box-shadow:0 0 30px rgba(102,187,106,0.06);">
+                    <div class="step-icon" style="font-family:'Archivo Black',sans-serif;font-size:clamp(1.8rem,3.5vw,2.5rem);color:var(--accent-green);margin-bottom:0.3rem;">3</div>
                     <div class="step-label">Live EV per Player</div>
                     <div class="step-sub">Real-time dashboard</div>
                 </div>
             </div>
+            <p class="reveal subtitle" style="margin-top:clamp(1rem,2vw,1.5rem);">No new hardware. Software-only install.</p>
         </div>
     </section>
 
@@ -1051,6 +1076,11 @@
                 this.currentSlide = 0;
                 this.totalSlides = this.slides.length;
 
+                // Track phased slides — phase2 shows on next advance before moving on
+                this.gapPhase2 = document.getElementById('gapPhase2');
+                this.gapSlideIndex = Array.from(this.slides).findIndex(s => s.id === 'gapSlide');
+                this.phase2Shown = false;
+
                 this.createNavDots();
                 this.setupObserver();
                 this.setupKeyboard();
@@ -1080,6 +1110,14 @@
                                 this.currentSlide = idx;
                                 this.updateDots();
                                 this.updateProgress();
+                                // Reset phase2 if we scrolled away and came back
+                                if (idx === this.gapSlideIndex && !this.phase2Shown) {
+                                    this.gapPhase2.classList.remove('show');
+                                }
+                                if (idx !== this.gapSlideIndex) {
+                                    this.phase2Shown = false;
+                                    this.gapPhase2.classList.remove('show');
+                                }
                             }
                         }
                     });
@@ -1092,10 +1130,10 @@
                 document.addEventListener('keydown', (e) => {
                     if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
                         e.preventDefault();
-                        this.nextSlide();
+                        this.advance();
                     } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft' || e.key === 'PageUp') {
                         e.preventDefault();
-                        this.prevSlide();
+                        this.retreat();
                     } else if (e.key === 'Home') {
                         e.preventDefault();
                         this.goToSlide(0);
@@ -1112,8 +1150,8 @@
                     const now = Date.now();
                     if (now - lastWheel < 800) return;
                     lastWheel = now;
-                    if (e.deltaY > 0) this.nextSlide();
-                    else this.prevSlide();
+                    if (e.deltaY > 0) this.advance();
+                    else this.retreat();
                 }, { passive: true });
             }
 
@@ -1125,8 +1163,8 @@
                 document.addEventListener('touchend', (e) => {
                     const diff = startY - e.changedTouches[0].clientY;
                     if (Math.abs(diff) > 50) {
-                        if (diff > 0) this.nextSlide();
-                        else this.prevSlide();
+                        if (diff > 0) this.advance();
+                        else this.retreat();
                     }
                 }, { passive: true });
             }
@@ -1139,8 +1177,25 @@
                 this.updateProgress();
             }
 
-            nextSlide() { this.goToSlide(this.currentSlide + 1); }
-            prevSlide() { this.goToSlide(this.currentSlide - 1); }
+            advance() {
+                // If on the gap slide and phase2 not yet shown, show it instead of advancing
+                if (this.currentSlide === this.gapSlideIndex && !this.phase2Shown) {
+                    this.phase2Shown = true;
+                    this.gapPhase2.classList.add('show');
+                    return;
+                }
+                this.goToSlide(this.currentSlide + 1);
+            }
+
+            retreat() {
+                // If on the gap slide and phase2 is showing, hide it instead of going back
+                if (this.currentSlide === this.gapSlideIndex && this.phase2Shown) {
+                    this.phase2Shown = false;
+                    this.gapPhase2.classList.remove('show');
+                    return;
+                }
+                this.goToSlide(this.currentSlide - 1);
+            }
 
             updateDots() {
                 this.dots.forEach((dot, i) => {
